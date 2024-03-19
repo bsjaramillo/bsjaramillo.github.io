@@ -2,10 +2,10 @@
   "basics": {
     "name": "Brandon Steven Jaramillo Araujo",
     "label": "Desarrollador de aplicaciones Full Stack",
-    "image": "/me.webp",
+    "image": "/me.jpg",
     "email": "brandonja1995@gmail.com",
     "phone": "+593988840438",
-    "url": "https://midu.dev",
+    "url": "https://bsjaramillo.github.io",
     "summary": "Ingeniero en Tecnologías de la Información con una sólida formación académica y un enfoque apasionado hacia la programación y la tecnología, busco oportunidades para emprender y poner a prueba mis conocimientos. Mi pasión por la innovación me impulsa a buscar constantemente nuevas oportunidades para aplicar mis conocimientos y habilidades en proyectos desafiantes.",
     "location": {
       "address": "",
@@ -162,63 +162,40 @@
   ],
   "interests": [
     {
-      "name": "Wildlife",
-      "keywords": ["Ferrets", "Unicorns"]
-    }
-  ],
-  "references": [
-    {
-      "name": "Jane Doe",
-      "reference": "Reference…"
+      "name": "Sports",
+      "keywords": ["Basketball", "Gym", "Billard"]
     }
   ],
   "projects": [
     {
-      "name": "mars.codes",
+      "name": "Inbizio",
       "isActive": true,
-      "description": "Historia interactiva con retos de programación para viajar a Marte",
-      "highlights": ["Elige tu propia aventura", "En desarrollo"],
-      "url": "https://mars.codes"
+      "description": "Cliente de chat que se conecta a las tan recordadas salas de chat de Ares.",
+      "highlights": ["+100 descargas", "Multidioma", "React Native", "Android"],
+      "url": "https://play.google.com/store/apps/details?id=com.inbizio&hl=es&gl=US"
     },
     {
-      "name": "AdventJS",
-      "isActive": true,
-      "description": "Retos de programación en JavaScript para cada día de diciembre hasta Navidad",
-      "highlights": [
-        "+1 millón de visitas",
-        "Multidioma",
-        "JavaScript & TypeScript"
-      ],
-      "url": "https://adventjs.dev"
+      "name": "Inbizio Web",
+      "isActive": false,
+      "description": "Cliente Web de chat que se conecta a las tan recordadas salas de chat de Ares.",
+      "highlights": ["React JS", "Web", "+40 usuarios activos al día"],
+      "url": "http://inbizio.app"
     },
     {
-      "name": "Codember",
-      "isActive": true,
-      "description": "Juego interactivo de programación con retos y secretos",
-      "highlights": ["+2000 usuarios activos", "Retos para cualquier lenguaje"],
-      "url": "https://codember.dev"
+      "name": "Fesri",
+      "isActive": false,
+      "description": "Sistema de inventario y facturación electrónica.",
+      "highlights": ["En desarrollo", "Next.js", "DRF", "Full Stack"],
+      "url": "",
+      "github": ""
     },
     {
-      "name": "codi.link",
+      "name": "Petrous",
       "isActive": true,
-      "description": "Playground de código HTML, CSS y JavaScript para compartir",
-      "highlights": ["100k visitas al mes", "Desarrollado por la comunidad"],
-      "url": "https://codi.link",
-      "github": "https://github.com/midudev/codi.link"
-    },
-    {
-      "name": "Pruebas Técnicas",
-      "isActive": true,
-      "description": "Lista de pruebas técnicas de empresas para practicar programación",
-      "highlights": ["100% gratuito", "+500 soluciones de la comunidad"],
-      "url": "https://pruebastecnicas.com",
-      "github": "https://github.com/midudev/pruebas-tecnicas"
-    },
-    {
-      "name": "miduConf",
-      "description": "Conferencia de programación en streaming para la comunidad hispanohablante con charlas top",
-      "highlights": ["+15k tickets repartidos", "+50k espectadores en directo"],
-      "url": "https://miduconf.com"
+      "description": "Aplicación móvil de inventario para pequeños negocios.",
+      "highlights": ["React Native", "Supabase", "Expo", "Android"],
+      "url": "",
+      "github": ""
     }
   ]
 }

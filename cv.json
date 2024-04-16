@@ -140,6 +140,11 @@
       ]
     },
     {
+      "name": "NestJS",
+      "level": "Medio",
+      "keywords": ["API RESTFULL", "Backend", "Node Framework", "Typescript"]
+    },
+    {
       "name": "React",
       "level": "Avanzado",
       "keywords": ["Desarrollo Web", "Frontend", "JavaScript Library", "UI"]
@@ -169,7 +174,7 @@
   "projects": [
     {
       "name": "Inbizio",
-      "isActive": true,
+      "isActive": false,
       "description": "Cliente de chat que se conecta a las tan recordadas salas de chat de Ares.",
       "highlights": ["+100 descargas", "Multidioma", "React Native", "Android"],
       "url": "https://play.google.com/store/apps/details?id=com.inbizio&hl=es&gl=US"
@@ -182,10 +187,17 @@
       "url": "http://inbizio.app"
     },
     {
-      "name": "Fesri",
+      "name": "Inventa",
       "isActive": false,
       "description": "Sistema de inventario y facturación electrónica.",
-      "highlights": ["En desarrollo", "Next.js", "DRF", "Full Stack"],
+      "highlights": [
+        "En desarrollo",
+        "Next.js",
+        "NestJS",
+        "MariaDB",
+        "Tailwind",
+        "Full Stack"
+      ],
       "url": "",
       "github": ""
     },

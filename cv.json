@@ -174,17 +174,23 @@
   "projects": [
     {
       "name": "Inbizio",
-      "isActive": false,
+      "isActive": true,
       "description": "Cliente de chat que se conecta a las tan recordadas salas de chat de Ares.",
-      "highlights": ["+100 descargas", "Multidioma", "React Native", "Android"],
+      "highlights": [
+        "+100 descargas",
+        "Expo",
+        "React Native",
+        "Android",
+        "Javascript"
+      ],
       "url": "https://play.google.com/store/apps/details?id=com.inbizio&hl=es&gl=US"
     },
     {
       "name": "Inbizio Web",
-      "isActive": false,
+      "isActive": true,
       "description": "Cliente Web de chat que se conecta a las tan recordadas salas de chat de Ares.",
-      "highlights": ["React JS", "Web", "+40 usuarios activos al día"],
-      "url": "http://inbizio.app"
+      "highlights": ["React JS", "Expo", "Web", "+40 usuarios activos al día"],
+      "url": "http://inbizio.xyz"
     },
     {
       "name": "Inventa",

@@ -45,7 +45,7 @@
       "area": "Information Technology Engineer",
       "studyType": "Third level",
       "startDate": "2016-04-16",
-      "endDate": "2022-09-20",
+      "endDate": "2023-09-20",
       "score": "5.0",
       "courses": [""]
     }
@@ -153,7 +153,11 @@
   "interests": [
     {
       "name": "Sports",
-      "keywords": ["Basketball", "Gym", "Billard"]
+      "keywords": ["Basketball", "Gym", "Billiards"]
+    },
+    {
+      "name": "Music",
+      "keywords": ["Piano"]
     }
   ],
   "projects": [
@@ -162,22 +166,30 @@
       "isActive": true,
       "description": "Chat client connecting to the famous Ares chat rooms.",
       "highlights": [
-        "+100 downloads",
-        "Multilanguage",
+        "+100 descargas",
+        "Expo",
         "React Native",
-        "Android"
+        "Android",
+        "Javascript",
+        "Supabase"
       ],
       "url": "https://play.google.com/store/apps/details?id=com.inbizio&hl=es&gl=US"
     },
     {
       "name": "Inbizio Web",
-      "isActive": false,
+      "isActive": true,
       "description": "Web chat client connecting to the famous Ares chat rooms.",
-      "highlights": ["React JS", "Web", "+40 active users per day"],
-      "url": "http://inbizio.app"
+      "highlights": [
+        "React JS",
+        "Expo",
+        "Web",
+        "+40 usuarios activos al día",
+        "Supabase"
+      ],
+      "url": "http://inbizio.xyz"
     },
     {
-      "name": "Fesri",
+      "name": "Inventa",
       "isActive": false,
       "description": "Inventory and electronic invoicing system.",
       "highlights": ["Under development", "Next.js", "DRF", "Full Stack"],

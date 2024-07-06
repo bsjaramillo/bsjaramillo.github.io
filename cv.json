@@ -45,7 +45,7 @@
       "area": "Ingeniero en Tecnologías de la Información",
       "studyType": "Tercer nivel",
       "startDate": "2016-04-16",
-      "endDate": "2022-09-20",
+      "endDate": "2023-09-20",
       "score": "5.0",
       "courses": [""]
     }
@@ -153,22 +153,32 @@
       "name": "React Native",
       "level": "Avanzado",
       "keywords": ["Desarrollo Móvil", "Frontend", "JavaScript Library", "UI"]
+    },
+
+    {
+      "name": "Docker",
+      "level": "Medio",
+      "keywords": ["Backend"]
     }
   ],
   "languages": [
     {
       "language": "Spanish",
-      "fluency": "Native speaker"
+      "fluency": "Nativo"
     },
     {
       "language": "English",
-      "fluency": "Intermediate"
+      "fluency": "Intermedio"
     }
   ],
   "interests": [
     {
-      "name": "Sports",
-      "keywords": ["Basketball", "Gym", "Billard"]
+      "name": "Deportes",
+      "keywords": ["Basketball", "Gym", "Billar"]
+    },
+    {
+      "name": "Música",
+      "keywords": ["Piano"]
     }
   ],
   "projects": [
@@ -181,7 +191,8 @@
         "Expo",
         "React Native",
         "Android",
-        "Javascript"
+        "Javascript",
+        "Supabase"
       ],
       "url": "https://play.google.com/store/apps/details?id=com.inbizio&hl=es&gl=US"
     },
@@ -189,7 +200,13 @@
       "name": "Inbizio Web",
       "isActive": true,
       "description": "Cliente Web de chat que se conecta a las tan recordadas salas de chat de Ares.",
-      "highlights": ["React JS", "Expo", "Web", "+40 usuarios activos al día"],
+      "highlights": [
+        "React JS",
+        "Expo",
+        "Web",
+        "+40 usuarios activos al día",
+        "Supabase"
+      ],
       "url": "http://inbizio.xyz"
     },
     {

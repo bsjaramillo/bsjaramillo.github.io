@@ -190,7 +190,7 @@
       "isActive": true,
       "description": "Cliente de chat que se conecta a las tan recordadas salas de chat de Ares.",
       "highlights": [
-        "+100 descargas",
+        "+150 descargas",
         "Expo",
         "React Native",
         "Android",
@@ -213,7 +213,7 @@
       "url": "http://inbizio.xyz"
     },
     {
-      "name": "Inventa",
+      "name": "InVenta",
       "isActive": false,
       "description": "Sistema de inventario y facturación electrónica.",
       "highlights": [
@@ -230,8 +230,24 @@
     {
       "name": "Petrous",
       "isActive": true,
-      "description": "Aplicación móvil de inventario para pequeños negocios.",
+      "description": "Aplicación móvil para administración de inventario para pequeños negocios.",
       "highlights": ["React Native", "Supabase", "Expo", "Android"],
+      "url": "",
+      "github": ""
+    },
+    {
+      "name": "TriAIge",
+      "isActive": false,
+      "description": "Colaborador y desarrollador de un agente/chatbot de pre-diagnósticos médicos asistido por IA, en base a datos del paciente y síntomas.",
+      "highlights": ["Python", "Flask", "ChatGPT", "IA", "Web", "MySQL"],
+      "url": "",
+      "github": ""
+    },
+    {
+      "name": "TradeBot",
+      "isActive": false,
+      "description": "Bot de trading de criptomonedas aplicando estratégias de trading y análisis de datos. Automatización de alertas de compra y venta por email.",
+      "highlights": ["Python", "WebSockets", "MySQL", "Docker"],
       "url": "",
       "github": ""
     }

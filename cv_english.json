@@ -206,6 +206,22 @@
       "highlights": ["React Native", "Supabase", "Expo", "Android"],
       "url": "",
       "github": ""
+    },
+    {
+      "name": "TriAIge",
+      "isActive": false,
+      "description": "Collaborator and developer of an AI-assisted medical pre-diagnosis agent/chatbot, based on patient data and symptoms.",
+      "highlights": ["Python", "Flask", "ChatGPT", "IA", "Web", "MySQL"],
+      "url": "",
+      "github": ""
+    },
+    {
+      "name": "TradeBot",
+      "isActive": false,
+      "description": "Cryptocurrency trading bot applying trading strategies and data analysis. Automation of buy and sell alerts via email.",
+      "highlights": ["Python", "WebSockets", "MySQL", "Docker"],
+      "url": "",
+      "github": ""
     }
   ]
 }

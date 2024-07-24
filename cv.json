@@ -47,7 +47,10 @@
       "startDate": "2016-04-16",
       "endDate": "2023-09-20",
       "score": "5.0",
-      "courses": [""]
+      "courses": [
+        "Cursos destacados: Desarrollo Web Avanzado, Base de Datos, Inteligencia Artificial.",
+        "Proyecto de Titulación: Implementación de un servicio de firma electrónica para la ESPE."
+      ]
     }
   ],
   "skills": [
@@ -163,11 +166,11 @@
   ],
   "languages": [
     {
-      "language": "Spanish",
+      "language": "Español",
       "fluency": "Nativo"
     },
     {
-      "language": "English",
+      "language": "Inglés",
       "fluency": "Intermedio"
     }
   ],

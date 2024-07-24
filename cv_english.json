@@ -47,7 +47,10 @@
       "startDate": "2016-04-16",
       "endDate": "2023-09-20",
       "score": "5.0",
-      "courses": [""]
+      "courses": [
+        "Featured courses: Advanced Web Development, Databases, Artificial Intelligence.",
+        "Degree Project: Implementation of an electronic signature service for ESPE."
+      ]
     }
   ],
   "skills": [

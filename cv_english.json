@@ -2,7 +2,7 @@
   "basics": {
     "name": "Brandon Steven Jaramillo Araujo",
     "label": "Full Stack Application Developer",
-    "image": "/me.png",
+    "image": "/me.jpg",
     "email": "brandonja1995@gmail.com",
     "phone": "+593988840438",
     "url": "https://bsjaramillo.github.io",
@@ -36,7 +36,33 @@
       "startDate": "2022-09-01",
       "endDate": "2022-12-24",
       "summary": "Contributor to the update of public administration systems. Support and resolution of end-user incidents.",
-      "highlights": null
+      "highlights": [
+        "Visual Basic",
+        "SQL Server",
+        "Incident Resolution",
+        "Legacy System Maintenance"
+      ]
+    },
+    {
+      "name": "Amapola Technologies Corp.",
+      "position": "Junior Full Stack Developer",
+      "url": "https://www.amapola.tech",
+      "startDate": "2024-08-05",
+      "endDate": null,
+      "summary": "Update and modernization of a legacy system to new technologies, optimizing its performance and scalability. Design and development of a customer relationship management (CRM) system. Development of an artificial intelligence-based solution to assist healthcare professionals in diagnoses. Improvements and maintenance of legacy systems.",
+      "highlights": [
+        "React JS",
+        "Next.js",
+        "Django",
+        "Django Rest Framework",
+        "PHP",
+        "Python",
+        "Google Cloud",
+        "Tailwind",
+        "MySQL",
+        "Docker",
+        "Full Stack"
+      ]
     }
   ],
   "education": [
@@ -170,7 +196,7 @@
       "isActive": true,
       "description": "Chat client connecting to the famous Ares chat rooms.",
       "highlights": [
-        "+100 descargas",
+        "+500 descargas",
         "Expo",
         "React Native",
         "Android",

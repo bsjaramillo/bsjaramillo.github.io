@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "cv_portfolio",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -10,9 +10,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "0.4.1",
-    "astro": "4.3.2",
-    "hotkeypad": "0.1.0",
-    "typescript": "5.3.3"
+    "@astrojs/check": "^0.9.4",
+    "astro": "^5.10.1",
+    "hotkeypad": "^0.1.0",
+    "typescript": "^5.3.3"
   }
 }

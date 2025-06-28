@@ -2,7 +2,7 @@
   "basics": {
     "name": "Brandon Steven Jaramillo Araujo",
     "label": "Desarrollador de aplicaciones Full Stack",
-    "image": "/me.png",
+    "image": "/me.jpg",
     "email": "brandonja1995@gmail.com",
     "phone": "+593988840438",
     "url": "https://bsjaramillo.github.io",
@@ -36,7 +36,33 @@
       "startDate": "2022-09-01",
       "endDate": "2022-12-24",
       "summary": "Colaborador en actualización de sistemas de administración pública. Soporte y resolución de incidencias al usuario final.",
-      "highlights": null
+      "highlights": [
+        "Visual Basic",
+        "SQL Server",
+        "Resolución de incidencias",
+        "Mantenimiento de sistemas legados"
+      ]
+    },
+    {
+      "name": "Amapola Technologies Corp.",
+      "position": "Junior Full Stack Developer",
+      "url": "https://www.amapola.tech",
+      "startDate": "2024-08-05",
+      "endDate": null,
+      "summary": "Actualización y modernización de un sistema legado a nuevas tecnologías, optimizando su rendimiento y escalabilidad. Diseño y desarrollo un sistema de gestión de clientes (CRM). Desarrollo de una solución basada en inteligencia artificial para asistir a profesionales de la salud en diagnósticos. Mejoras y mantenimiento de sistemas legados.",
+      "highlights": [
+        "React JS",
+        "Next.js",
+        "Django",
+        "Django Rest Framework",
+        "PHP",
+        "Python",
+        "Google Cloud",
+        "Tailwind",
+        "MySQL",
+        "Docker",
+        "Full Stack"
+      ]
     }
   ],
   "education": [

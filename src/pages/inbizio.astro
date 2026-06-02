@@ -1,0 +1,259 @@
+---
+const appName = "Inbizio"
+const tagline = "Chat Ares, ahora en tu bolsillo."
+const description =
+  "Cliente de chat Ares para Android. Conéctate a salas, descubre servidores y recibe mensajes en tiempo real — rápido, ligero y nativo."
+const version = "0.1.5"
+const apkHref = "/inbizio.apk"
+
+const features = [
+  {
+    title: "Salas en tiempo real",
+    text: "Conexión WebSocket persistente para no perderte ningún mensaje.",
+  },
+  {
+    title: "Descubrimiento UDP",
+    text: "Encuentra salas y servidores Ares automáticamente en la red.",
+  },
+  {
+    title: "Notificaciones nativas",
+    text: "Alertas de mensajes privados y buzzes directamente en tu dispositivo.",
+  },
+  {
+    title: "Ligero y nativo",
+    text: "Construido con Tauri 2.0 para un rendimiento fluido y bajo consumo.",
+  },
+]
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{appName} — App de chat Ares para Android</title>
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/inbizio-logo.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${appName} — ${tagline}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/inbizio-logo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+
+  <body>
+    <main>
+      <section class="hero">
+        <img class="logo" src="/inbizio-logo.png" alt={`Logo de ${appName}`} width="96" height="96" />
+        <h1>{appName}</h1>
+        <p class="tagline">{tagline}</p>
+        <p class="desc">{description}</p>
+
+        <a class="download" href={apkHref} download>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Descargar APK
+        </a>
+        <p class="meta">Android · v{version} · ~86 MB</p>
+      </section>
+
+      <section class="features">
+        <ul>
+          {
+            features.map((f) => (
+              <li>
+                <h3>{f.title}</h3>
+                <p>{f.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="install">
+        <h2>Cómo instalar</h2>
+        <ol>
+          <li>Descarga el archivo <code>inbizio.apk</code>.</li>
+          <li>Abre el archivo desde tu administrador de descargas.</li>
+          <li>Permite la instalación desde orígenes desconocidos si Android lo solicita.</li>
+          <li>Acepta los permisos y empieza a chatear.</li>
+        </ol>
+      </section>
+
+      <footer>
+        <p>© {new Date().getFullYear()} {appName}. Hecho con Tauri + Next.js.</p>
+      </footer>
+    </main>
+
+    <style is:global>
+      :root {
+        color-scheme: dark;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: #0a0a0b;
+        color: #ededed;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+    </style>
+
+    <style>
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 2rem 0 3rem;
+      }
+
+      .logo {
+        border-radius: 22px;
+        box-shadow: 0 8px 40px rgba(99, 102, 241, 0.25);
+      }
+
+      h1 {
+        font-size: 2.75rem;
+        margin: 1.25rem 0 0.25rem;
+        letter-spacing: -0.03em;
+      }
+
+      .tagline {
+        font-size: 1.15rem;
+        color: #c7c7cf;
+        margin: 0 0 1rem;
+      }
+
+      .desc {
+        max-width: 480px;
+        margin: 0 auto 2rem;
+        color: #8e8e98;
+        font-size: 0.95rem;
+      }
+
+      .download {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.05rem;
+        padding: 0.85rem 1.75rem;
+        border-radius: 12px;
+        text-decoration: none;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+      }
+
+      .download:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(99, 102, 241, 0.5);
+      }
+
+      .meta {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: #6b6b76;
+      }
+
+      .features ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .features li {
+        background: #141417;
+        border: 1px solid #232328;
+        border-radius: 14px;
+        padding: 1.25rem;
+      }
+
+      .features h3 {
+        margin: 0 0 0.35rem;
+        font-size: 1rem;
+        color: #ededed;
+      }
+
+      .features p {
+        margin: 0;
+        font-size: 0.88rem;
+        color: #8e8e98;
+      }
+
+      .install {
+        margin-top: 3rem;
+      }
+
+      .install h2 {
+        font-size: 1.4rem;
+        margin: 0 0 1rem;
+      }
+
+      .install ol {
+        margin: 0;
+        padding-left: 1.25rem;
+        color: #c7c7cf;
+        font-size: 0.95rem;
+      }
+
+      .install li {
+        margin-bottom: 0.5rem;
+      }
+
+      code {
+        background: #232328;
+        padding: 0.1rem 0.4rem;
+        border-radius: 5px;
+        font-size: 0.85em;
+      }
+
+      footer {
+        margin-top: 3.5rem;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #6b6b76;
+      }
+
+      @media (max-width: 560px) {
+        main {
+          padding: 2.5rem 1.25rem;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        .features ul {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </body>
+</html>

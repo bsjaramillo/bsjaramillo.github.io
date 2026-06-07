@@ -40,6 +40,16 @@ const features = [
     <meta property="og:description" content={description} />
     <meta property="og:image" content="/inbizio-logo.png" />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-0WF2B67SLX"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-0WF2B67SLX');
+    </script>
   </head>
 
   <body>

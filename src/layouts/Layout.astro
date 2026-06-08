@@ -8,6 +8,9 @@ interface Props {
 const { title } = Astro.props
 
 const { image, summary, url } = basics
+
+const ogImage = new URL(image, Astro.site).href
+const canonical = new URL(Astro.url.pathname, Astro.site).href
 ---
 
 <!doctype html>
@@ -18,20 +21,21 @@ const { image, summary, url } = basics
     <meta name="description" content={summary} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
     <link rel="preload" as="image" href={image} />
 
     <meta property="og:url" content={url} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={summary} />
-    <meta property="og:image" content="" />
+    <meta property="og:image" content={ogImage} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:domain" content={url.split("//")[1] ?? ''} />
     <meta property="twitter:url" content={url} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={summary} />
-    <meta name="twitter:image" content="" />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Google tag (gtag.js) -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-0WF2B67SLX"></script>

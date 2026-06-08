@@ -86,6 +86,7 @@ const printInfo = [email, phone, linkedUrl].filter(Boolean).join(" • ");
               title={`Revisa el curriculum vitae de ${name}`}
               target="_blank"
               rel="noopener noreferrer"
+              onclick="window.gtag && gtag('event', 'download_cv', { event_category: 'engagement', event_label: 'portfolio' })"
             >
               <CV />
             </a>

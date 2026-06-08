@@ -6,6 +6,9 @@ const description =
 const version = "0.1.5"
 const apkHref = "/inbizio.apk"
 
+const ogImage = new URL("/inbizio-logo.png", Astro.site).href
+const canonical = new URL(Astro.url.pathname, Astro.site).href
+
 const features = [
   {
     title: "Salas en tiempo real",
@@ -34,12 +37,14 @@ const features = [
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="/inbizio-logo.png" />
+    <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={`${appName} — ${tagline}`} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/inbizio-logo.png" />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Google tag (gtag.js) -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-0WF2B67SLX"></script>
@@ -60,7 +65,12 @@ const features = [
         <p class="tagline">{tagline}</p>
         <p class="desc">{description}</p>
 
-        <a class="download" href={apkHref} download>
+        <a
+          class="download"
+          href={apkHref}
+          download
+          onclick="window.gtag && gtag('event', 'download_apk', { event_category: 'engagement', event_label: 'inbizio', value: '0.1.5' })"
+        >
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
             <polyline points="7 10 12 15 17 10" />

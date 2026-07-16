@@ -1,0 +1,530 @@
+---
+const appName = "Astra"
+const tagline = "Tu sala de chat Ares, en cualquier plataforma."
+const description =
+  "Servidor de chat compatible con Ares Galaxy, escrito en Rust. Monta tu propia sala en minutos: protocolo completo, moderación avanzada, scripting y un panel de administración web — en cualquier plataforma."
+
+const repoHref = "https://github.com/bsjaramillo/astra"
+const creatorHref = "https://github.com/bsjaramillo/astra-creator"
+
+const ogImage = new URL("/astra-logo.svg", Astro.site).href
+const canonical = new URL(Astro.url.pathname, Astro.site).href
+
+const features = [
+  {
+    title: "Protocolo Ares completo",
+    text: "Cualquier cliente Ares Galaxy oficial se conecta sin cambios: TCP binario, room search UDP y clientes web en el mismo puerto.",
+  },
+  {
+    title: "Multiplataforma real",
+    text: "Linux, Windows, macOS, FreeBSD y Raspberry Pi. Un binario estático, sin runtime, con miles de conexiones concurrentes.",
+  },
+  {
+    title: "Seguridad por construcción",
+    text: "Memory safety garantizada por Rust, 5 capas de defensa anti-DDoS y captcha opcional para IPs nuevas.",
+  },
+  {
+    title: "Panel de administración web",
+    text: "Gestión de usuarios, bans, filtros, greets y configuración desde el navegador, protegido con owner password.",
+  },
+  {
+    title: "Moderación completa",
+    text: "Ban, kick, muzzle, niveles de usuario, vrooms, topic y decenas de comandos más, directamente en el chat.",
+  },
+  {
+    title: "Scripting y Link",
+    text: "Motor de plugins JavaScript por sala y Link Hub/Leaf entre servidores con cifrado AES-256.",
+  },
+]
+
+const adminCommands = [
+  ["/login <owner_password>", "te hace Owner de la sala"],
+  ["/topic <texto>", "cambia el tema de la sala"],
+  ["/ban <nick>", "banea a un usuario"],
+  ["/grant <nick> moderator", "asigna niveles de moderación"],
+  ["/help", "lista todos los comandos disponibles"],
+]
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{appName} — Servidor de chat Ares en Rust</title>
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/astra-logo.svg" />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${appName} — ${tagline}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-0WF2B67SLX"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-0WF2B67SLX');
+    </script>
+  </head>
+
+  <body>
+    <main>
+      <section class="hero">
+        <img class="logo" src="/astra-logo.svg" alt={`Logo de ${appName}`} width="96" height="96" />
+        <h1>{appName}</h1>
+        <p class="tagline">{tagline}</p>
+        <p class="desc">{description}</p>
+
+        <div class="cta">
+          <a
+            class="button primary"
+            href={repoHref}
+            target="_blank"
+            rel="noopener"
+            onclick="window.gtag && gtag('event', 'view_repo', { event_category: 'engagement', event_label: 'astra' })"
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+              <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.05.78 2.13v3.16c0 .3.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+            </svg>
+            Ver en GitHub
+          </a>
+          <a class="button secondary" href="#instalacion">Cómo instalarlo</a>
+        </div>
+        <p class="meta">Rust · Docker · Linux / Windows / macOS / ARM</p>
+      </section>
+
+      <section class="features">
+        <ul>
+          {
+            features.map((f) => (
+              <li>
+                <h3>{f.title}</h3>
+                <p>{f.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="block" id="que-es">
+        <h2>¿Qué es Astra?</h2>
+        <p class="block-text">
+          Astra es un servidor de salas de chat que implementa el protocolo binario de
+          <strong>Ares Galaxy</strong>, heredero moderno de sb0t: corre en cualquier sistema
+          operativo, consume pocos recursos y se administra desde el navegador. Los usuarios entran
+          con su cliente Ares de siempre apuntando a <code>&lt;tu-ip&gt;:5009</code>, o directamente
+          desde el navegador con el cliente web integrado.
+        </p>
+      </section>
+
+      <section class="block" id="instalacion">
+        <h2>Instalación con astra-creator</h2>
+        <p class="block-text">
+          La forma recomendada de instalar y desplegar salas Astra es
+          <a class="inline-link" href={creatorHref} target="_blank" rel="noopener">astra-creator</a>:
+          una herramienta de terminal (TUI) que crea una o varias salas sobre Docker, genera la
+          configuración de cada una y administra su ciclo de vida sin salir de la consola. Corre
+          directo por SSH en tu servidor — sin navegador, sin puertos extra, un solo binario.
+        </p>
+
+        <ol class="steps">
+          <li>
+            <h3>1. Instala astra-creator</h3>
+            <p>En tu servidor (necesita <code>docker</code> + <code>docker compose</code>):</p>
+            <pre><code>curl -sSL https://raw.githubusercontent.com/bsjaramillo/astra-creator/main/install.sh | sh</code></pre>
+            <p class="note">
+              En Windows: <code>irm https://raw.githubusercontent.com/bsjaramillo/astra-creator/main/install.ps1 | iex</code>
+            </p>
+          </li>
+          <li>
+            <h3>2. Abre la TUI y crea tu sala</h3>
+            <pre><code>astra-creator /srv/astra-salas</code></pre>
+            <p>
+              Pulsa <kbd>a</kbd> para agregar una sala: nombre, puerto, owner password y — si quieres
+              HTTPS — un dominio. Puedes definir tantas salas como quieras; cada una es un contenedor
+              independiente con su configuración y sus datos.
+            </p>
+          </li>
+          <li>
+            <h3>3. Despliega</h3>
+            <p>
+              Pulsa <kbd>D</kbd> (Deploy): genera el <code>astra.toml</code> de cada sala más un
+              <code>docker-compose.yml</code> y levanta todo con <code>docker compose up -d</code>.
+              Desde la misma TUI puedes hacer start/stop (<kbd>s</kbd>/<kbd>x</kbd>), ver logs
+              (<kbd>l</kbd>) y actualizar a la última imagen (<kbd>u</kbd>).
+            </p>
+          </li>
+          <li>
+            <h3>4. Abre el puerto</h3>
+            <p>
+              Cada sala escucha en su puerto (TCP + UDP). Ábrelo en tu firewall para que la gente
+              entre:
+            </p>
+            <pre><code>sudo ufw allow 5009/tcp && sudo ufw allow 5009/udp</code></pre>
+          </li>
+        </ol>
+      </section>
+
+      <section class="block" id="administracion">
+        <h2>Administración</h2>
+        <p class="block-text">
+          Una vez desplegada, cada sala se administra de dos formas equivalentes:
+        </p>
+
+        <div class="admin-grid">
+          <article>
+            <h3>Panel web</h3>
+            <p>
+              Entra a <code>http://&lt;tu-ip&gt;:&lt;puerto&gt;/admin</code> con el owner password de
+              la sala. Desde ahí gestionas usuarios (ban, kick, muzzle, niveles), bans, flags de
+              sala, greets, filtros, la edición del config y una consola de comandos.
+            </p>
+          </article>
+          <article>
+            <h3>Comandos en el chat</h3>
+            <p>Toda la moderación está disponible como comandos dentro de la sala:</p>
+            <ul class="cmd-list">
+              {
+                adminCommands.map(([cmd, what]) => (
+                  <li>
+                    <code>{cmd}</code>
+                    <span>{what}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </article>
+        </div>
+
+        <p class="block-text">
+          ¿HTTPS para el panel y el cliente web? También se configura desde astra-creator: ponle un
+          dominio a la sala en el campo <em>"Dominio HTTPS"</em> del formulario (con el DNS apuntando
+          a tu servidor) y vuelve a desplegar con <kbd>D</kbd>. Se levanta automáticamente un reverse
+          proxy Caddy con certificados de Let's Encrypt, y el panel queda en
+          <code>https://&lt;tu-dominio&gt;/admin</code>. Los clientes Ares siguen entrando directo
+          por el puerto de la sala.
+        </p>
+      </section>
+
+      <footer>
+        <p>
+          © {new Date().getFullYear()} {appName}. Hecho con Rust.
+          <a class="inline-link" href={repoHref} target="_blank" rel="noopener">astra</a> ·
+          <a class="inline-link" href={creatorHref} target="_blank" rel="noopener">astra-creator</a>
+        </p>
+      </footer>
+    </main>
+
+    <style is:global>
+      :root {
+        color-scheme: dark;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family:
+          system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        background: #0a0a0b;
+        color: #ededed;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+    </style>
+
+    <style>
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem;
+      }
+
+      .hero {
+        text-align: center;
+        padding: 2rem 0 3rem;
+      }
+
+      .logo {
+        border-radius: 22px;
+        box-shadow: 0 8px 40px rgba(255, 106, 18, 0.25);
+      }
+
+      h1 {
+        font-size: 2.75rem;
+        margin: 1.25rem 0 0.25rem;
+        letter-spacing: -0.03em;
+      }
+
+      .tagline {
+        font-size: 1.15rem;
+        color: #c7c7cf;
+        margin: 0 0 1rem;
+      }
+
+      .desc {
+        max-width: 540px;
+        margin: 0 auto 2rem;
+        color: #8e8e98;
+        font-size: 0.95rem;
+      }
+
+      .cta {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 600;
+        font-size: 1.05rem;
+        padding: 0.85rem 1.75rem;
+        border-radius: 12px;
+        text-decoration: none;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, #ffb15a, #ff6a12);
+        color: #14100b;
+        box-shadow: 0 4px 20px rgba(255, 106, 18, 0.35);
+      }
+
+      .button.primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(255, 106, 18, 0.5);
+      }
+
+      .button.secondary {
+        background: #141417;
+        border: 1px solid #232328;
+        color: #ededed;
+      }
+
+      .button.secondary:hover {
+        transform: translateY(-2px);
+        border-color: #3a3a42;
+      }
+
+      .meta {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: #6b6b76;
+      }
+
+      .features ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .features li {
+        background: #141417;
+        border: 1px solid #232328;
+        border-radius: 14px;
+        padding: 1.25rem;
+      }
+
+      .features h3 {
+        margin: 0 0 0.35rem;
+        font-size: 1rem;
+        color: #ededed;
+      }
+
+      .features p {
+        margin: 0;
+        font-size: 0.88rem;
+        color: #8e8e98;
+      }
+
+      .block {
+        margin-top: 3.5rem;
+      }
+
+      .block h2 {
+        font-size: 1.4rem;
+        margin: 0 0 1rem;
+      }
+
+      .block-text {
+        color: #c7c7cf;
+        font-size: 0.95rem;
+        margin: 0 0 1rem;
+      }
+
+      .inline-link {
+        color: #ffb15a;
+        text-decoration: none;
+      }
+
+      .inline-link:hover {
+        text-decoration: underline;
+      }
+
+      .steps {
+        list-style: none;
+        margin: 1.5rem 0 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .steps > li {
+        background: #141417;
+        border: 1px solid #232328;
+        border-radius: 14px;
+        padding: 1.25rem;
+      }
+
+      .steps h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1rem;
+        color: #ffb15a;
+      }
+
+      .steps p {
+        margin: 0 0 0.5rem;
+        font-size: 0.9rem;
+        color: #c7c7cf;
+      }
+
+      .steps p:last-child {
+        margin-bottom: 0;
+      }
+
+      .note {
+        font-size: 0.8rem;
+        color: #8e8e98;
+      }
+
+      pre {
+        background: #0d0d10;
+        border: 1px solid #232328;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        overflow-x: auto;
+        margin: 0.5rem 0;
+      }
+
+      pre code {
+        background: none;
+        padding: 0;
+        font-size: 0.82rem;
+        color: #ffd9b3;
+      }
+
+      code {
+        background: #232328;
+        padding: 0.1rem 0.4rem;
+        border-radius: 5px;
+        font-size: 0.85em;
+      }
+
+      kbd {
+        background: #232328;
+        border: 1px solid #3a3a42;
+        border-bottom-width: 2px;
+        border-radius: 5px;
+        padding: 0.05rem 0.4rem;
+        font-size: 0.85em;
+        font-family: inherit;
+      }
+
+      .admin-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .admin-grid article {
+        background: #141417;
+        border: 1px solid #232328;
+        border-radius: 14px;
+        padding: 1.25rem;
+      }
+
+      .admin-grid h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1rem;
+        color: #ffb15a;
+      }
+
+      .admin-grid p {
+        margin: 0 0 0.5rem;
+        font-size: 0.88rem;
+        color: #8e8e98;
+      }
+
+      .cmd-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .cmd-list li {
+        font-size: 0.82rem;
+        color: #8e8e98;
+      }
+
+      .cmd-list span {
+        display: block;
+        margin-top: 0.1rem;
+      }
+
+      footer {
+        margin-top: 3.5rem;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #6b6b76;
+      }
+
+      @media (max-width: 560px) {
+        main {
+          padding: 2.5rem 1.25rem;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        .features ul,
+        .admin-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </body>
+</html>

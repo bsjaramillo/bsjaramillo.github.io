@@ -162,12 +162,19 @@ const adminCommands = [
             </p>
           </li>
           <li>
-            <h3>4. Abre el puerto</h3>
+            <h3>4. Abre el puerto (en los dos firewalls)</h3>
             <p>
-              Cada sala escucha en su puerto (TCP + UDP). Ábrelo en tu firewall para que la gente
-              entre:
+              Cada sala escucha en su puerto en <strong>TCP y UDP</strong>. Hay que abrirlo en el
+              firewall del sistema operativo:
             </p>
             <pre><code>sudo ufw allow 5009/tcp && sudo ufw allow 5009/udp</code></pre>
+            <p>
+              …y también en el <strong>firewall de tu VPS</strong> (security groups de AWS, reglas
+              de ingreso de Oracle Cloud o GCP, el panel de Hetzner/Vultr/DigitalOcean…). Es el
+              paso que más se olvida: si el proveedor bloquea el puerto, nadie entra aunque
+              <code>ufw</code> lo permita. Si usas HTTPS, abre además el <strong>80 y 443 TCP</strong>
+              en ambos lados para que Caddy pueda emitir el certificado.
+            </p>
           </li>
         </ol>
       </section>

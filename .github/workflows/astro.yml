@@ -9,6 +9,12 @@ on:
   push:
     branches: ["master"]
 
+  # Rebuild diario: la landing de Astra lee el contador de descargas de la
+  # imagen Docker en tiempo de build, así que sin esto el número quedaría
+  # congelado hasta el próximo push.
+  schedule:
+    - cron: "0 6 * * *"
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 

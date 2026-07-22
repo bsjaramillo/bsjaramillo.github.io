@@ -6,6 +6,34 @@ const description =
 
 const repoHref = "https://github.com/bsjaramillo/astra"
 const creatorHref = "https://github.com/bsjaramillo/astra-creator"
+const packageHref = "https://github.com/bsjaramillo/astra/pkgs/container/astra"
+
+// Descargas totales de la imagen Docker, leídas de la página del paquete en
+// GHCR. Se resuelve en build: GitHub no envía cabeceras CORS, así que el
+// navegador no puede pedirlo. El `title` del <h3> trae el número exacto (el
+// texto visible viene abreviado, "1.2K"). Si falla, la cifra simplemente no
+// se muestra — nunca rompe el build.
+async function fetchDownloads(): Promise<number | null> {
+  try {
+    const res = await fetch(packageHref, {
+      signal: AbortSignal.timeout(10000),
+      headers: { "User-Agent": "astra-landing-build" },
+    })
+    if (!res.ok) return null
+    const html = await res.text()
+    const m = html.match(
+      /Total downloads<\/span>\s*<h3[^>]*title="([\d,]+)"/i
+    )
+    if (!m) return null
+    const n = Number(m[1].replace(/,/g, ""))
+    return Number.isFinite(n) && n > 0 ? n : null
+  } catch {
+    return null
+  }
+}
+
+const downloads = await fetchDownloads()
+const downloadsLabel = downloads?.toLocaleString("es-ES") ?? null
 
 const ogImage = new URL("/astra-logo.svg", Astro.site).href
 const canonical = new URL(Astro.url.pathname, Astro.site).href
@@ -97,6 +125,18 @@ const adminCommands = [
           </a>
           <a class="button secondary" href="#instalacion">Cómo instalarlo</a>
         </div>
+        {
+          downloadsLabel && (
+            <a class="downloads" href={packageHref} target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <strong>{downloadsLabel}</strong> descargas de la imagen Docker
+            </a>
+          )
+        }
         <p class="meta">Rust · Docker · Linux / Windows / macOS / ARM</p>
       </section>
 
@@ -336,6 +376,31 @@ const adminCommands = [
       .button.secondary:hover {
         transform: translateY(-2px);
         border-color: #3a3a42;
+      }
+
+      .downloads {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        margin-top: 1.5rem;
+        padding: 0.4rem 0.9rem;
+        border: 1px solid #232328;
+        border-radius: 999px;
+        background: #141417;
+        color: #8e8e98;
+        font-size: 0.85rem;
+        text-decoration: none;
+        transition: border-color 0.15s ease, color 0.15s ease;
+      }
+
+      .downloads:hover {
+        border-color: #3a3a42;
+        color: #c7c7cf;
+      }
+
+      .downloads strong {
+        color: #ffb15a;
+        font-weight: 600;
       }
 
       .meta {

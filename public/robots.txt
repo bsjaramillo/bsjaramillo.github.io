@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://bsjaramillo.github.io/sitemap-index.xml
+Sitemap: https://bsjaramillo.github.io/astra/sitemap.xml
+Sitemap: https://bsjaramillo.github.io/inbizio/sitemap.xml

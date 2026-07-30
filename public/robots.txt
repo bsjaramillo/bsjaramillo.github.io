@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bsjaramillo.github.io/sitemap-index.xml

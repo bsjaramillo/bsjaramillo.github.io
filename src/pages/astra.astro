@@ -1,12 +1,12 @@
 ---
-const appName = "Astra"
-const tagline = "Tu sala de chat Ares, en cualquier plataforma."
+const appName = "Astra";
+const tagline = "Tu sala de chat Ares, en cualquier plataforma.";
 const description =
-  "Servidor de chat compatible con Ares Galaxy, escrito en Rust. Monta tu propia sala en minutos: protocolo completo, moderación avanzada, scripting y un panel de administración web — en cualquier plataforma."
+  "Servidor de chat compatible con Ares Galaxy, escrito en Rust. Monta tu propia sala en minutos: protocolo completo, moderación avanzada, scripting y un panel de administración web — en cualquier plataforma.";
 
-const repoHref = "https://github.com/bsjaramillo/astra"
-const creatorHref = "https://github.com/bsjaramillo/astra-creator"
-const packageHref = "https://github.com/bsjaramillo/astra/pkgs/container/astra"
+const repoHref = "https://github.com/bsjaramillo/astra";
+const creatorHref = "https://github.com/bsjaramillo/astra-creator";
+const packageHref = "https://github.com/bsjaramillo/astra/pkgs/container/astra";
 
 // Descargas totales de la imagen Docker, leídas de la página del paquete en
 // GHCR. Se resuelve en build: GitHub no envía cabeceras CORS, así que el
@@ -18,25 +18,23 @@ async function fetchDownloads(): Promise<number | null> {
     const res = await fetch(packageHref, {
       signal: AbortSignal.timeout(10000),
       headers: { "User-Agent": "astra-landing-build" },
-    })
-    if (!res.ok) return null
-    const html = await res.text()
-    const m = html.match(
-      /Total downloads<\/span>\s*<h3[^>]*title="([\d,]+)"/i
-    )
-    if (!m) return null
-    const n = Number(m[1].replace(/,/g, ""))
-    return Number.isFinite(n) && n > 0 ? n : null
+    });
+    if (!res.ok) return null;
+    const html = await res.text();
+    const m = html.match(/Total downloads<\/span>\s*<h3[^>]*title="([\d,]+)"/i);
+    if (!m) return null;
+    const n = Number(m[1].replace(/,/g, ""));
+    return Number.isFinite(n) && n > 0 ? n : null;
   } catch {
-    return null
+    return null;
   }
 }
 
-const downloads = await fetchDownloads()
-const downloadsLabel = downloads?.toLocaleString("es-ES") ?? null
+const downloads = await fetchDownloads();
+const downloadsLabel = downloads?.toLocaleString("es-ES") ?? null;
 
-const ogImage = new URL("/astra-logo.svg", Astro.site).href
-const canonical = new URL(Astro.url.pathname, Astro.site).href
+const ogImage = new URL("/astra-logo.svg", Astro.site).href;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
 const features = [
   {
@@ -63,7 +61,7 @@ const features = [
     title: "Scripting y Link",
     text: "Motor de plugins JavaScript por sala y Link Hub/Leaf entre servidores con cifrado AES-256.",
   },
-]
+];
 
 const adminCommands = [
   ["/login <owner_password>", "te hace Owner de la sala"],
@@ -71,7 +69,7 @@ const adminCommands = [
   ["/ban <nick>", "banea a un usuario"],
   ["/grant <nick> moderator", "asigna niveles de moderación"],
   ["/help", "lista todos los comandos disponibles"],
-]
+];
 ---
 
 <!doctype html>
@@ -92,20 +90,35 @@ const adminCommands = [
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Google tag (gtag.js) -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-0WF2B67SLX"></script>
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-0WF2B67SLX"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'G-0WF2B67SLX');
+      gtag("config", "G-0WF2B67SLX");
     </script>
+    <meta
+      name="google-site-verification"
+      content="Sz54v6G5Mupkrbw_Nik0aI61i6sycF9PcvJIbfHO5ew"
+    />
   </head>
 
   <body>
     <main>
       <section class="hero">
-        <img class="logo" src="/astra-logo.svg" alt={`Logo de ${appName}`} width="96" height="96" />
+        <img
+          class="logo"
+          src="/astra-logo.svg"
+          alt={`Logo de ${appName}`}
+          width="96"
+          height="96"
+        />
         <h1>{appName}</h1>
         <p class="tagline">{tagline}</p>
         <p class="desc">{description}</p>
@@ -118,8 +131,16 @@ const adminCommands = [
             rel="noopener"
             onclick="window.gtag && gtag('event', 'view_repo', { event_category: 'engagement', event_label: 'astra' })"
           >
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-              <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.05.78 2.13v3.16c0 .3.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+            <svg
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.15c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.05.78 2.13v3.16c0 .3.21.67.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"
+              ></path>
             </svg>
             Ver en GitHub
           </a>
@@ -127,8 +148,23 @@ const adminCommands = [
         </div>
         {
           downloadsLabel && (
-            <a class="downloads" href={packageHref} target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <a
+              class="downloads"
+              href={packageHref}
+              target="_blank"
+              rel="noopener"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
@@ -156,11 +192,13 @@ const adminCommands = [
       <section class="block" id="que-es">
         <h2>¿Qué es Astra?</h2>
         <p class="block-text">
-          Astra es un servidor de salas de chat que implementa el protocolo binario de
-          <strong>Ares Galaxy</strong>, heredero moderno de sb0t: corre en cualquier sistema
-          operativo, consume pocos recursos y se administra desde el navegador. Los usuarios entran
-          con su cliente Ares de siempre apuntando a <code>&lt;tu-ip&gt;:5009</code>, o directamente
-          desde el navegador con el cliente web integrado.
+          Astra es un servidor de salas de chat que implementa el protocolo
+          binario de
+          <strong>Ares Galaxy</strong>, heredero moderno de sb0t: corre en
+          cualquier sistema operativo, consume pocos recursos y se administra
+          desde el navegador. Los usuarios entran con su cliente Ares de siempre
+          apuntando a <code>&lt;tu-ip&gt;:5009</code>, o directamente desde el
+          navegador con el cliente web integrado.
         </p>
       </section>
 
@@ -168,51 +206,73 @@ const adminCommands = [
         <h2>Instalación con astra-creator</h2>
         <p class="block-text">
           La forma recomendada de instalar y desplegar salas Astra es
-          <a class="inline-link" href={creatorHref} target="_blank" rel="noopener">astra-creator</a>:
-          una herramienta de terminal (TUI) que crea una o varias salas sobre Docker, genera la
-          configuración de cada una y administra su ciclo de vida sin salir de la consola. Corre
-          directo por SSH en tu servidor — sin navegador, sin puertos extra, un solo binario.
+          <a
+            class="inline-link"
+            href={creatorHref}
+            target="_blank"
+            rel="noopener">astra-creator</a
+          >: una herramienta de terminal (TUI) que crea una o varias salas sobre
+          Docker, genera la configuración de cada una y administra su ciclo de
+          vida sin salir de la consola. Corre directo por SSH en tu servidor —
+          sin navegador, sin puertos extra, un solo binario.
         </p>
 
         <ol class="steps">
           <li>
             <h3>1. Instala astra-creator</h3>
-            <p>En tu servidor (necesita <code>docker</code> + <code>docker compose</code>):</p>
+            <p>
+              En tu servidor (necesita <code>docker</code> + <code
+                >docker compose</code
+              >):
+            </p>
             <pre><code>curl -sSL https://raw.githubusercontent.com/bsjaramillo/astra-creator/main/install.sh | sh</code></pre>
             <p class="note">
-              En Windows: <code>irm https://raw.githubusercontent.com/bsjaramillo/astra-creator/main/install.ps1 | iex</code>
+              En Windows: <code
+                >irm
+                https://raw.githubusercontent.com/bsjaramillo/astra-creator/main/install.ps1
+                | iex</code
+              >
             </p>
           </li>
           <li>
             <h3>2. Abre la TUI y crea tu sala</h3>
             <pre><code>astra-creator /srv/astra-salas</code></pre>
             <p>
-              Pulsa <kbd>a</kbd> para agregar una sala: nombre, puerto, owner password y — si quieres
-              HTTPS — un dominio. Puedes definir tantas salas como quieras; cada una es un contenedor
-              independiente con su configuración y sus datos.
+              Pulsa <kbd>a</kbd> para agregar una sala: nombre, puerto, owner password
+              y — si quieres HTTPS — un dominio. Puedes definir tantas salas como
+              quieras; cada una es un contenedor independiente con su configuración
+              y sus datos.
             </p>
           </li>
           <li>
             <h3>3. Despliega</h3>
             <p>
-              Pulsa <kbd>D</kbd> (Deploy): genera el <code>astra.toml</code> de cada sala más un
-              <code>docker-compose.yml</code> y levanta todo con <code>docker compose up -d</code>.
-              Desde la misma TUI puedes hacer start/stop (<kbd>s</kbd>/<kbd>x</kbd>), ver logs
-              (<kbd>l</kbd>) y actualizar a la última imagen (<kbd>u</kbd>).
+              Pulsa <kbd>D</kbd> (Deploy): genera el <code>astra.toml</code> de cada
+              sala más un
+              <code>docker-compose.yml</code> y levanta todo con <code
+                >docker compose up -d</code
+              >. Desde la misma TUI puedes hacer start/stop (<kbd>s</kbd>/<kbd
+                >x</kbd
+              >), ver logs (<kbd>l</kbd>) y actualizar a la última imagen (<kbd
+                >u</kbd
+              >).
             </p>
           </li>
           <li>
             <h3>4. Abre el puerto (en los dos firewalls)</h3>
             <p>
-              Cada sala escucha en su puerto en <strong>TCP y UDP</strong>. Hay que abrirlo en el
-              firewall del sistema operativo:
+              Cada sala escucha en su puerto en <strong>TCP y UDP</strong>. Hay
+              que abrirlo en el firewall del sistema operativo:
             </p>
             <pre><code>sudo ufw allow 5009/tcp && sudo ufw allow 5009/udp</code></pre>
             <p>
-              …y también en el <strong>firewall de tu VPS</strong> (security groups de AWS, reglas
-              de ingreso de Oracle Cloud o GCP, el panel de Hetzner/Vultr/DigitalOcean…). Es el
-              paso que más se olvida: si el proveedor bloquea el puerto, nadie entra aunque
-              <code>ufw</code> lo permita. Si usas HTTPS, abre además el <strong>80 y 443 TCP</strong>
+              …y también en el <strong>firewall de tu VPS</strong> (security groups
+              de AWS, reglas de ingreso de Oracle Cloud o GCP, el panel de Hetzner/Vultr/DigitalOcean…).
+              Es el paso que más se olvida: si el proveedor bloquea el puerto, nadie
+              entra aunque
+              <code>ufw</code> lo permita. Si usas HTTPS, abre además el <strong
+                >80 y 443 TCP</strong
+              >
               en ambos lados para que Caddy pueda emitir el certificado.
             </p>
           </li>
@@ -222,21 +282,26 @@ const adminCommands = [
       <section class="block" id="administracion">
         <h2>Administración</h2>
         <p class="block-text">
-          Una vez desplegada, cada sala se administra de dos formas equivalentes:
+          Una vez desplegada, cada sala se administra de dos formas
+          equivalentes:
         </p>
 
         <div class="admin-grid">
           <article>
             <h3>Panel web</h3>
             <p>
-              Entra a <code>http://&lt;tu-ip&gt;:&lt;puerto&gt;/admin</code> con el owner password de
-              la sala. Desde ahí gestionas usuarios (ban, kick, muzzle, niveles), bans, flags de
-              sala, greets, filtros, la edición del config y una consola de comandos.
+              Entra a <code>http://&lt;tu-ip&gt;:&lt;puerto&gt;/admin</code> con el
+              owner password de la sala. Desde ahí gestionas usuarios (ban, kick,
+              muzzle, niveles), bans, flags de sala, greets, filtros, la edición del
+              config y una consola de comandos.
             </p>
           </article>
           <article>
             <h3>Comandos en el chat</h3>
-            <p>Toda la moderación está disponible como comandos dentro de la sala:</p>
+            <p>
+              Toda la moderación está disponible como comandos dentro de la
+              sala:
+            </p>
             <ul class="cmd-list">
               {
                 adminCommands.map(([cmd, what]) => (
@@ -251,20 +316,30 @@ const adminCommands = [
         </div>
 
         <p class="block-text">
-          ¿HTTPS para el panel y el cliente web? También se configura desde astra-creator: ponle un
-          dominio a la sala en el campo <em>"Dominio HTTPS"</em> del formulario (con el DNS apuntando
-          a tu servidor) y vuelve a desplegar con <kbd>D</kbd>. Se levanta automáticamente un reverse
-          proxy Caddy con certificados de Let's Encrypt, y el panel queda en
-          <code>https://&lt;tu-dominio&gt;/admin</code>. Los clientes Ares siguen entrando directo
-          por el puerto de la sala.
+          ¿HTTPS para el panel y el cliente web? También se configura desde
+          astra-creator: ponle un dominio a la sala en el campo <em
+            >"Dominio HTTPS"</em
+          > del formulario (con el DNS apuntando a tu servidor) y vuelve a desplegar
+          con <kbd>D</kbd>. Se levanta automáticamente un reverse proxy Caddy
+          con certificados de Let's Encrypt, y el panel queda en
+          <code>https://&lt;tu-dominio&gt;/admin</code>. Los clientes Ares
+          siguen entrando directo por el puerto de la sala.
         </p>
       </section>
 
       <footer>
         <p>
-          © {new Date().getFullYear()} {appName}. Hecho con Rust.
-          <a class="inline-link" href={repoHref} target="_blank" rel="noopener">astra</a> ·
-          <a class="inline-link" href={creatorHref} target="_blank" rel="noopener">astra-creator</a>
+          © {new Date().getFullYear()}
+          {appName}. Hecho con Rust.
+          <a class="inline-link" href={repoHref} target="_blank" rel="noopener"
+            >astra</a
+          > ·
+          <a
+            class="inline-link"
+            href={creatorHref}
+            target="_blank"
+            rel="noopener">astra-creator</a
+          >
         </p>
       </footer>
     </main>
@@ -290,7 +365,11 @@ const adminCommands = [
 
       body {
         font-family:
-          system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
           sans-serif;
         background: #0a0a0b;
         color: #ededed;
@@ -390,7 +469,9 @@ const adminCommands = [
         color: #8e8e98;
         font-size: 0.85rem;
         text-decoration: none;
-        transition: border-color 0.15s ease, color 0.15s ease;
+        transition:
+          border-color 0.15s ease,
+          color 0.15s ease;
       }
 
       .downloads:hover {

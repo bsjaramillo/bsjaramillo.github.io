@@ -1,8 +1,14 @@
 ---
 const appName = "Astra";
-const tagline = "Tu sala de chat Ares, en cualquier plataforma.";
+const tagline = "Tu sala de chat Ares Galaxy, en cualquier plataforma.";
 const description =
   "Servidor de chat compatible con Ares Galaxy, escrito en Rust. Monta tu propia sala en minutos: protocolo completo, moderación avanzada, scripting y un panel de administración web — en cualquier plataforma.";
+
+// Description separada de la visible: los buscadores cortan sobre los 155
+// caracteres, así que aquí van los términos por los que se busca de verdad
+// ("servidor ares galaxy", "alternativa a sb0t") lo más al principio posible.
+const metaDescription =
+  "Servidor de chat Ares Galaxy y alternativa a sb0t para Linux, Windows, macOS y Docker. Escrito en Rust: monta tu sala en minutos, gratis y open source.";
 
 const repoHref = "https://github.com/bsjaramillo/astra";
 const creatorHref = "https://github.com/bsjaramillo/astra-creator";
@@ -70,24 +76,64 @@ const adminCommands = [
   ["/grant <nick> moderator", "asigna niveles de moderación"],
   ["/help", "lista todos los comandos disponibles"],
 ];
+
+// Datos estructurados: aquí `keywords` sí es una propiedad legítima del
+// esquema (a diferencia de <meta name="keywords">, que Google ignora desde
+// 2009). Le describe la entidad al buscador de forma explícita.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: appName,
+  alternateName: "Astra Ares Server",
+  applicationCategory: "CommunicationApplication",
+  operatingSystem: "Linux, Windows, macOS, FreeBSD, Raspberry Pi",
+  description: metaDescription,
+  url: canonical,
+  image: ogImage,
+  softwareRequirements: "Docker",
+  codeRepository: repoHref,
+  downloadUrl: packageHref,
+  isAccessibleForFree: true,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  author: {
+    "@type": "Person",
+    name: "Brandon Jaramillo",
+    url: "https://github.com/bsjaramillo",
+  },
+  keywords:
+    "Ares Galaxy, sb0t, servidor de chat, sala de chat, chat rooms, Rust, Docker, self-hosted",
+};
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>{appName} — Servidor de chat Ares en Rust</title>
-    <meta name="description" content={description} />
+    <title>{appName} — Servidor de chat Ares Galaxy y alternativa a sb0t</title>
+    <meta name="description" content={metaDescription} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/astra-logo.svg" />
     <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={appName} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={`${appName} — ${tagline}`} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`Logo de ${appName}`} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${appName} — ${tagline}`} />
+    <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImage} />
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(jsonLd)}
+    />
 
     <!-- Google tag (gtag.js) -->
     <script
@@ -115,12 +161,11 @@ const adminCommands = [
         <img
           class="logo"
           src="/astra-logo.svg"
-          alt={`Logo de ${appName}`}
+          alt={`Logo de ${appName}, servidor de chat Ares Galaxy`}
           width="96"
           height="96"
         />
-        <h1>{appName}</h1>
-        <p class="tagline">{tagline}</p>
+        <h1>{appName}<span class="tagline">{tagline}</span></h1>
         <p class="desc">{description}</p>
 
         <div class="cta">
@@ -194,16 +239,20 @@ const adminCommands = [
         <p class="block-text">
           Astra es un servidor de salas de chat que implementa el protocolo
           binario de
-          <strong>Ares Galaxy</strong>, heredero moderno de sb0t: corre en
-          cualquier sistema operativo, consume pocos recursos y se administra
-          desde el navegador. Los usuarios entran con su cliente Ares de siempre
+          <strong>Ares Galaxy</strong>. Es el heredero moderno de <strong
+            >sb0t</strong
+          >: donde sb0t solo corre en Windows sobre .NET, Astra es un binario
+          Rust que funciona igual en Linux, Windows, macOS, FreeBSD o una
+          Raspberry Pi, consume pocos recursos y se administra desde el
+          navegador. Los usuarios entran con su cliente Ares de siempre
           apuntando a <code>&lt;tu-ip&gt;:5009</code>, o directamente desde el
-          navegador con el cliente web integrado.
+          navegador con el cliente web integrado. Desde Android puedes usar
+          <a class="inline-link" href="/inbizio/">Inbizio</a>.
         </p>
       </section>
 
       <section class="block" id="instalacion">
-        <h2>Instalación con astra-creator</h2>
+        <h2>Cómo instalar tu servidor Ares con astra-creator</h2>
         <p class="block-text">
           La forma recomendada de instalar y desplegar salas Astra es
           <a
@@ -397,14 +446,20 @@ const adminCommands = [
 
       h1 {
         font-size: 2.75rem;
-        margin: 1.25rem 0 0.25rem;
+        margin: 1.25rem 0 0;
         letter-spacing: -0.03em;
       }
 
+      /* Va dentro del <h1> para que el encabezado principal contenga los
+         términos de búsqueda y no solo la marca. Se estiliza como bloque
+         aparte, así que se ve igual que cuando era un <p> hermano. */
       .tagline {
+        display: block;
         font-size: 1.15rem;
+        font-weight: 400;
+        letter-spacing: normal;
         color: #c7c7cf;
-        margin: 0 0 1rem;
+        margin: 0.25rem 0 1rem;
       }
 
       .desc {

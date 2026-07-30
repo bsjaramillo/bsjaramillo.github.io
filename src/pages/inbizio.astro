@@ -1,13 +1,20 @@
 ---
 const appName = "Inbizio";
-const tagline = "Chat Ares, ahora en tu bolsillo.";
+const tagline = "El chat de Ares Galaxy, ahora en tu Android.";
 const description =
-  "Cliente de chat Ares para Android. Conéctate a salas, descubre servidores y recibe mensajes en tiempo real — rápido, ligero y nativo.";
+  "Cliente de chat Ares Galaxy para Android. Conéctate a salas, descubre servidores y recibe mensajes en tiempo real — rápido, ligero y nativo.";
 const version = "0.1.6";
 const apkHref = "/inbizio.apk";
 
+// Description separada de la visible: los buscadores cortan sobre los 155
+// caracteres, así que aquí van los términos por los que se busca de verdad
+// ("cliente ares android", "apk") lo más al principio posible.
+const metaDescription =
+  "Cliente de chat Ares Galaxy para Android. Descarga el APK gratis, entra en salas, descubre servidores y chatea en tiempo real desde tu móvil.";
+
 const ogImage = new URL("/inbizio-logo.png", Astro.site).href;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const apkUrl = new URL(apkHref, Astro.site).href;
 
 const features = [
   {
@@ -27,24 +34,64 @@ const features = [
     text: "Construido con Tauri 2.0 para un rendimiento fluido y bajo consumo.",
   },
 ];
+
+// Datos estructurados: aquí `keywords` sí es una propiedad legítima del
+// esquema (a diferencia de <meta name="keywords">, que Google ignora desde
+// 2009). Le describe la entidad al buscador de forma explícita.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  name: appName,
+  applicationCategory: "SocialNetworkingApplication",
+  operatingSystem: "Android",
+  description: metaDescription,
+  url: canonical,
+  image: ogImage,
+  softwareVersion: version,
+  fileSize: "86MB",
+  installUrl: canonical,
+  downloadUrl: apkUrl,
+  isAccessibleForFree: true,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  author: {
+    "@type": "Person",
+    name: "Brandon Jaramillo",
+    url: "https://github.com/bsjaramillo",
+  },
+  keywords:
+    "Ares Galaxy, cliente Ares, chat Android, salas de chat, APK, mensajería, Tauri",
+};
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>{appName} — App de chat Ares para Android</title>
-    <meta name="description" content={description} />
+    <title>{appName} — Cliente de chat Ares para Android (APK gratis)</title>
+    <meta name="description" content={metaDescription} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/png" href="/inbizio-logo.png" />
     <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={appName} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={`${appName} — ${tagline}`} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`Logo de ${appName}`} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${appName} — ${tagline}`} />
+    <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImage} />
+
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(jsonLd)}
+    />
 
     <!-- Google tag (gtag.js) -->
     <script
@@ -72,12 +119,11 @@ const features = [
         <img
           class="logo"
           src="/inbizio-logo.png"
-          alt={`Logo de ${appName}`}
+          alt={`Logo de ${appName}, cliente de chat Ares para Android`}
           width="96"
           height="96"
         />
-        <h1>{appName}</h1>
-        <p class="tagline">{tagline}</p>
+        <h1>{appName}<span class="tagline">{tagline}</span></h1>
         <p class="desc">{description}</p>
 
         <a
@@ -120,7 +166,7 @@ const features = [
       </section>
 
       <section class="install">
-        <h2>Cómo instalar</h2>
+        <h2>Cómo instalar Inbizio en Android</h2>
         <ol>
           <li>Descarga el archivo <code>inbizio.apk</code>.</li>
           <li>Abre el archivo desde tu administrador de descargas.</li>
@@ -130,6 +176,11 @@ const features = [
           </li>
           <li>Acepta los permisos y empieza a chatear.</li>
         </ol>
+        <p class="server-note">
+          ¿Quieres montar tu propia sala? <a href="/astra/">Astra</a> es un
+          servidor de chat Ares Galaxy que corre en Linux, Windows, macOS o
+          Docker.
+        </p>
       </section>
 
       <footer>
@@ -189,14 +240,20 @@ const features = [
 
       h1 {
         font-size: 2.75rem;
-        margin: 1.25rem 0 0.25rem;
+        margin: 1.25rem 0 0;
         letter-spacing: -0.03em;
       }
 
+      /* Va dentro del <h1> para que el encabezado principal contenga los
+         términos de búsqueda y no solo la marca. Se estiliza como bloque
+         aparte, así que se ve igual que cuando era un <p> hermano. */
       .tagline {
+        display: block;
         font-size: 1.15rem;
+        font-weight: 400;
+        letter-spacing: normal;
         color: #c7c7cf;
-        margin: 0 0 1rem;
+        margin: 0.25rem 0 1rem;
       }
 
       .desc {
@@ -280,6 +337,16 @@ const features = [
 
       .install li {
         margin-bottom: 0.5rem;
+      }
+
+      .server-note {
+        margin: 1.5rem 0 0;
+        color: #8e8e98;
+        font-size: 0.9rem;
+      }
+
+      .server-note a {
+        color: #a5a6f6;
       }
 
       code {

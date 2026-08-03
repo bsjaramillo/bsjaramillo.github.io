@@ -9,6 +9,12 @@ on:
   push:
     branches: ["master"]
 
+  # La landing de Inbizio lee versión y tamaño del APK de la última release en
+  # tiempo de build; sin esto el sitio seguiría anunciando la versión anterior
+  # hasta el siguiente push.
+  release:
+    types: [published]
+
   # Rebuild diario: la landing de Astra lee el contador de descargas de la
   # imagen Docker en tiempo de build, así que sin esto el número quedaría
   # congelado hasta el próximo push.
@@ -76,6 +82,10 @@ jobs:
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
+        env:
+          # Autentica la consulta a la API de releases: sin token son 60 req/h
+          # por IP, compartida entre runners de Actions.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

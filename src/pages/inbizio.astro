@@ -3,8 +3,57 @@ const appName = "Inbizio";
 const tagline = "El chat de Ares Galaxy, ahora en tu Android.";
 const description =
   "Cliente de chat Ares Galaxy para Android. Conéctate a salas, descubre servidores y recibe mensajes en tiempo real — rápido, ligero y nativo.";
-const version = "0.1.7";
-const apkHref = "/inbizio.apk";
+const REPO = "bsjaramillo/bsjaramillo.github.io";
+const APK_ASSET = "inbizio.apk";
+
+// El APK se sirve desde GitHub Releases, no desde public/: pesa ~85MB y cada
+// versión quedaría para siempre en el historial de git. `latest` hace que este
+// enlace no haya que tocarlo al publicar una release nueva.
+const apkHref = `https://github.com/${REPO}/releases/latest/download/${APK_ASSET}`;
+
+// Versión y tamaño se leen de la release en tiempo de build para no tener que
+// tocar este archivo en cada publicación. Si la API falla (rate limit, corte),
+// caemos a estos valores: la página nunca se queda sin datos ni rompe el build.
+const FALLBACK = { version: "0.1.7", sizeMb: 85 };
+
+async function fetchRelease(): Promise<typeof FALLBACK> {
+  // El token solo existe en CI; sin él son 60 req/hora por IP, suficiente para
+  // builds manuales pero no garantizado en runners compartidos.
+  const token = process.env.GITHUB_TOKEN;
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${REPO}/releases/latest`,
+      {
+        signal: AbortSignal.timeout(10000),
+        headers: {
+          Accept: "application/vnd.github+json",
+          "User-Agent": "inbizio-landing-build",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+      },
+    );
+    if (!res.ok) return FALLBACK;
+    const data = await res.json();
+
+    // Restringido a caracteres de versión: el valor se interpola dentro de un
+    // string JS en el onclick del botón, así que no puede llevar comillas.
+    const version = String(data.tag_name ?? "")
+      .replace(/^v/, "")
+      .replace(/[^\w.\-+]/g, "");
+    const asset = data.assets?.find((a: any) => a.name === APK_ASSET);
+    const sizeMb = asset?.size
+      ? Math.round(asset.size / 1024 / 1024)
+      : FALLBACK.sizeMb;
+
+    // Una release sin tag válido o sin el APK adjunto no debe degradar la
+    // página: preferimos el último valor bueno conocido.
+    return version ? { version, sizeMb } : FALLBACK;
+  } catch {
+    return FALLBACK;
+  }
+}
+
+const { version, sizeMb } = await fetchRelease();
 
 // Description separada de la visible: los buscadores cortan sobre los 155
 // caracteres, así que aquí van los términos por los que se busca de verdad
@@ -14,7 +63,6 @@ const metaDescription =
 
 const ogImage = new URL("/inbizio-logo.png", Astro.site).href;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const apkUrl = new URL(apkHref, Astro.site).href;
 
 const features = [
   {
@@ -48,9 +96,9 @@ const jsonLd = {
   url: canonical,
   image: ogImage,
   softwareVersion: version,
-  fileSize: "86MB",
+  fileSize: `${sizeMb}MB`,
   installUrl: canonical,
-  downloadUrl: apkUrl,
+  downloadUrl: apkHref,
   isAccessibleForFree: true,
   offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   author: {
@@ -129,8 +177,7 @@ const jsonLd = {
         <a
           class="download"
           href={apkHref}
-          download
-          onclick="window.gtag && gtag('event', 'download_apk', { event_category: 'engagement', event_label: 'inbizio', value: '0.1.7' })"
+          onclick={`window.gtag && gtag('event', 'download_apk', { event_category: 'engagement', event_label: 'inbizio', app_version: '${version}' })`}
         >
           <svg
             viewBox="0 0 24 24"
@@ -149,7 +196,7 @@ const jsonLd = {
           </svg>
           Descargar APK
         </a>
-        <p class="meta">Android · v{version} · ~86 MB</p>
+        <p class="meta">Android · v{version} · ~{sizeMb} MB</p>
       </section>
 
       <section class="features">

@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # local folders
 .history
+
+# APK distribuido via GitHub Releases, no en el repo
+public/*.apk

@@ -14,7 +14,7 @@ const apkHref = `https://github.com/${REPO}/releases/latest/download/${APK_ASSET
 // Versión y tamaño se leen de la release en tiempo de build para no tener que
 // tocar este archivo en cada publicación. Si la API falla (rate limit, corte),
 // caemos a estos valores: la página nunca se queda sin datos ni rompe el build.
-const FALLBACK = { version: "0.1.7", sizeMb: 85 };
+const FALLBACK = { version: "0.1.9", sizeMb: 85 };
 
 async function fetchRelease(): Promise<typeof FALLBACK> {
   // El token solo existe en CI; sin él son 60 req/hora por IP, suficiente para
